@@ -20,6 +20,7 @@
     if (!_viewControllers) {
         _viewControllers = @[
                              @"UICollectionViewDemo",
+                             @"XZPageControllerDemo"
                              ];
     }
     return _viewControllers;
@@ -29,6 +30,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"RecordObjective-C";
     self.view.backgroundColor = [UIColor whiteColor];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
