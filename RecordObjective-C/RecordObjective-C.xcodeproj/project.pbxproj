@@ -16,6 +16,7 @@
 		1816D4B31ED91B2C0004173A /* RecordObjective_CUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1816D4B21ED91B2C0004173A /* RecordObjective_CUITests.m */; };
 		1816D4C91ED921EC0004173A /* UICollectionViewLeftAlignedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1816D4C81ED921EC0004173A /* UICollectionViewLeftAlignedLayout.m */; };
 		1816D4CC1ED924AB0004173A /* UICollectionViewDecorationLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1816D4CB1ED924AB0004173A /* UICollectionViewDecorationLayout.m */; };
+		1826346A1F0B9808003AD86E /* UIScrollView+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 182634691F0B9808003AD86E /* UIScrollView+Category.m */; };
 		18BB0E0A1F09E98000AC8E85 /* XZPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BB0E091F09E98000AC8E85 /* XZPageController.m */; };
 		18BB0E0D1F09E9E800AC8E85 /* XZPageTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BB0E0C1F09E9E800AC8E85 /* XZPageTopBar.m */; };
 		18BB0E111F09EC7500AC8E85 /* UICollectionViewDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BB0E101F09EC7500AC8E85 /* UICollectionViewDemo.m */; };
@@ -67,6 +68,8 @@
 		1816D4C81ED921EC0004173A /* UICollectionViewLeftAlignedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewLeftAlignedLayout.m; sourceTree = "<group>"; };
 		1816D4CA1ED924AB0004173A /* UICollectionViewDecorationLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICollectionViewDecorationLayout.h; sourceTree = "<group>"; };
 		1816D4CB1ED924AB0004173A /* UICollectionViewDecorationLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewDecorationLayout.m; sourceTree = "<group>"; };
+		182634681F0B9808003AD86E /* UIScrollView+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Category.h"; sourceTree = "<group>"; };
+		182634691F0B9808003AD86E /* UIScrollView+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Category.m"; sourceTree = "<group>"; };
 		18BB0E081F09E98000AC8E85 /* XZPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XZPageController.h; sourceTree = "<group>"; };
 		18BB0E091F09E98000AC8E85 /* XZPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XZPageController.m; sourceTree = "<group>"; };
 		18BB0E0B1F09E9E800AC8E85 /* XZPageTopBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XZPageTopBar.h; sourceTree = "<group>"; };
@@ -242,6 +245,8 @@
 				18BB0E261F0A1FF400AC8E85 /* NSObject+Category.m */,
 				18BB0E281F0A23C300AC8E85 /* NSDate+Category.h */,
 				18BB0E291F0A23C300AC8E85 /* NSDate+Category.m */,
+				182634681F0B9808003AD86E /* UIScrollView+Category.h */,
+				182634691F0B9808003AD86E /* UIScrollView+Category.m */,
 			);
 			path = Categorys;
 			sourceTree = "<group>";
@@ -388,6 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18BB0E0D1F09E9E800AC8E85 /* XZPageTopBar.m in Sources */,
+				1826346A1F0B9808003AD86E /* UIScrollView+Category.m in Sources */,
 				18BB0E0A1F09E98000AC8E85 /* XZPageController.m in Sources */,
 				18BB0E271F0A1FF400AC8E85 /* NSObject+Category.m in Sources */,
 				18BB0E141F09EC9C00AC8E85 /* XZPageControllerDemo.m in Sources */,

@@ -10,7 +10,19 @@
 
 @interface UIImage (Category)
 
-- (UIImage *)circleImage;
+- (UIImage *)circularImage;
+
+- (UIImage *)imageByRoundCornerRadius:(CGFloat)radius;
+
+- (UIImage *)imageByRoundCornerRadius:(CGFloat)radius
+                                   borderWidth:(CGFloat)borderWidth
+                                   borderColor:(UIColor *)borderColor;
+
+- (UIImage *)imageByRoundCornerRadius:(CGFloat)radius
+                                       corners:(UIRectCorner)corners
+                                   borderWidth:(CGFloat)borderWidth
+                                   borderColor:(UIColor *)borderColor
+                                borderLineJoin:(CGLineJoin)borderLineJoin;
 
 // color -> image
 + (UIImage *)imageWithColor:(UIColor *)color;
@@ -20,9 +32,26 @@
 
 - (UIImage *)imageByTintColor:(UIColor *)tintColor;
 
+/**
+ *  typedef NS_ENUM(NSInteger, UIBlurEffectStyle) {
+ *      UIBlurEffectStyleExtraLight,
+ *      UIBlurEffectStyleLight,
+ *      UIBlurEffectStyleDark,
+ *      UIBlurEffectStyleExtraDark __TVOS_AVAILABLE(10_0) __IOS_PROHIBITED __WATCHOS_PROHIBITED,
+ *      UIBlurEffectStyleRegular NS_ENUM_AVAILABLE_IOS(10_0), // Adapts to user interface style
+ *      UIBlurEffectStyleProminent NS_ENUM_AVAILABLE_IOS(10_0), // Adapts to user interface style
+ *  } NS_ENUM_AVAILABLE_IOS(8_0);
+ *
+ *  \\\- apple example -///
+ *  UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+ *  UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+ */
+
 /// 毛玻璃
-- (UIImage *)imageByBlurLight;
-- (UIImage *)imageByBlurDark;
+- (UIImage *)imageByBlurLight;      // UIBlurEffectStyleLight
+- (UIImage *)imageByBlurExtraLight; // UIBlurEffectStyleExtraLight
+- (UIImage *)imageByBlurDark;       // UIBlurEffectStyleDark
+
 - (UIImage *)imageByBlurWithTint:(UIColor *)tintColor;
 
 - (UIImage *)imageByBlurRadius:(CGFloat)blurRadius

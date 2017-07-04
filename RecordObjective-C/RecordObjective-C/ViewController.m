@@ -31,6 +31,9 @@
     self.navigationItem.title = @"RecordObjective-C";
     self.view.backgroundColor = [UIColor whiteColor];
     
+    UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

@@ -16,15 +16,115 @@
 
 @implementation UIImage (Category)
 
-- (UIImage *)circleImage {
-    UIGraphicsBeginImageContextWithOptions(self.size, NO, 0);
-    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
-    [path addClip];
-    [self drawAtPoint:CGPointZero];
+- (UIImage *)circularImage {
+    // This function returns a newImage, based on image, that has been:
+    // - scaled to fit in (CGRect) rect
+    // - and cropped within a circle of radius: rectWidth/2
+    
+    //Create the bitmap graphics context
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.size.width, self.size.height), NO, 0.0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    //Get the width and heights
+    CGFloat imageWidth = self.size.width;
+    CGFloat imageHeight = self.size.height;
+    CGFloat rectWidth = self.size.width;
+    CGFloat rectHeight = self.size.height;
+    
+    //Calculate the scale factor
+    CGFloat scaleFactorX = rectWidth/imageWidth;
+    CGFloat scaleFactorY = rectHeight/imageHeight;
+    
+    //Calculate the centre of the circle
+    CGFloat imageCentreX = rectWidth/2;
+    CGFloat imageCentreY = rectHeight/2;
+    
+    // Create and CLIP to a CIRCULAR Path
+    // (This could be replaced with any closed path if you want a different shaped clip)
+    CGFloat radius = rectWidth/2;
+    CGContextBeginPath (context);
+    CGContextAddArc (context, imageCentreX, imageCentreY, radius, 0, 2*M_PI, 0);
+    CGContextClosePath (context);
+    CGContextClip (context);
+    
+    //Set the SCALE factor for the graphics context
+    //All future draw calls will be scaled by this factor
+    CGContextScaleCTM (context, scaleFactorX, scaleFactorY);
+    
+    // Draw the IMAGE
+    CGRect myRect = CGRectMake(0, 0, imageWidth, imageHeight);
+    [self drawInRect:myRect];
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+- (UIImage *)imageByRoundCornerRadius:(CGFloat)radius {
+    return [self imageByRoundCornerRadius:radius borderWidth:0 borderColor:nil];
+}
+
+- (UIImage *)imageByRoundCornerRadius:(CGFloat)radius
+                          borderWidth:(CGFloat)borderWidth
+                          borderColor:(UIColor *)borderColor {
+    return [self imageByRoundCornerRadius:radius
+                                  corners:UIRectCornerAllCorners
+                              borderWidth:borderWidth
+                              borderColor:borderColor
+                           borderLineJoin:kCGLineJoinMiter];
+}
+
+- (UIImage *)imageByRoundCornerRadius:(CGFloat)radius
+                              corners:(UIRectCorner)corners
+                          borderWidth:(CGFloat)borderWidth
+                          borderColor:(UIColor *)borderColor
+                       borderLineJoin:(CGLineJoin)borderLineJoin {
+    
+    if (corners != UIRectCornerAllCorners) {
+        UIRectCorner tmp = 0;
+        if (corners & UIRectCornerTopLeft) tmp |= UIRectCornerBottomLeft;
+        if (corners & UIRectCornerTopRight) tmp |= UIRectCornerBottomRight;
+        if (corners & UIRectCornerBottomLeft) tmp |= UIRectCornerTopLeft;
+        if (corners & UIRectCornerBottomRight) tmp |= UIRectCornerTopRight;
+        corners = tmp;
+    }
+    
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
+    CGContextScaleCTM(context, 1, -1);
+    CGContextTranslateCTM(context, 0, -rect.size.height);
+    
+    CGFloat minSize = MIN(self.size.width, self.size.height);
+    if (borderWidth < minSize / 2) {
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(rect, borderWidth, borderWidth) byRoundingCorners:corners cornerRadii:CGSizeMake(radius, borderWidth)];
+        [path closePath];
+        
+        CGContextSaveGState(context);
+        [path addClip];
+        CGContextDrawImage(context, rect, self.CGImage);
+        CGContextRestoreGState(context);
+    }
+    
+    if (borderColor && borderWidth < minSize / 2 && borderWidth > 0) {
+        CGFloat strokeInset = (floor(borderWidth * self.scale) + 0.5) / self.scale;
+        CGRect strokeRect = CGRectInset(rect, strokeInset, strokeInset);
+        CGFloat strokeRadius = radius > self.scale / 2 ? radius - self.scale / 2 : 0;
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:strokeRect byRoundingCorners:corners cornerRadii:CGSizeMake(strokeRadius, borderWidth)];
+        [path closePath];
+        
+        path.lineWidth = borderWidth;
+        path.lineJoinStyle = borderLineJoin;
+        [borderColor setStroke];
+        [path stroke];
+    }
+    
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
 }
+
 
 + (UIImage *)imageWithColor:(UIColor *)color {
     return [self imageWithColor:color size:CGSizeMake(1, 1)];
@@ -60,6 +160,10 @@
 
 - (UIImage *)imageByBlurLight {
     return [self imageByBlurRadius:60 tintColor:[UIColor colorWithWhite:1.0 alpha:0.3] tintMode:kCGBlendModeNormal saturation:1.8 maskImage:nil];
+}
+
+- (UIImage *)imageByBlurExtraLight {
+    return [self imageByBlurRadius:40 tintColor:[UIColor colorWithWhite:0.97 alpha:0.82] tintMode:kCGBlendModeNormal saturation:1.8 maskImage:nil];
 }
 
 - (UIImage *)imageByBlurDark {
