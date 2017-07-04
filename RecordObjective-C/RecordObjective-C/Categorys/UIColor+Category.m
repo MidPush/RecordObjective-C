@@ -79,15 +79,13 @@ static BOOL hexStrToRGBA(NSString *str, CGFloat *r, CGFloat *g, CGFloat *b, CGFl
 }
 
 - (UIImage *)pureColorImage {
-    return [self pureColorImageWithSize:CGSizeZero];
+    return [self pureColorImageWithSize:CGSizeMake(1, 1)];
 }
 
-- (UIImage *)pureColorImageWithSize:(CGSize)imageSize
+- (UIImage *)pureColorImageWithSize:(CGSize)size
 {
-    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
-    if (!CGSizeEqualToSize(imageSize, CGSizeZero)) {
-        rect = CGRectMake(0.0f, 0.0f, imageSize.width, imageSize.height);
-    }
+    if (size.width <= 0 || size.height <= 0) return nil;
+    CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(context, [self CGColor]);

@@ -12,4 +12,23 @@
 
 - (UIImage *)circleImage;
 
+// color -> image
++ (UIImage *)imageWithColor:(UIColor *)color;
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
+
+#pragma mark - Image Effect (YYKit)
+
+- (UIImage *)imageByTintColor:(UIColor *)tintColor;
+
+/// 毛玻璃
+- (UIImage *)imageByBlurLight;
+- (UIImage *)imageByBlurDark;
+- (UIImage *)imageByBlurWithTint:(UIColor *)tintColor;
+
+- (UIImage *)imageByBlurRadius:(CGFloat)blurRadius
+                     tintColor:(UIColor *)tintColor
+                      tintMode:(CGBlendMode)tintBlendMode
+                    saturation:(CGFloat)saturation
+                     maskImage:(UIImage *)maskImage;
+
 @end

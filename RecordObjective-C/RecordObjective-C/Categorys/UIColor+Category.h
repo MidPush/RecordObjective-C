@@ -15,6 +15,7 @@
 + (UIColor *)colorWithRGB:(uint32_t)rgbValue alpha:(CGFloat)alpha;
 + (UIColor *)colorWithHexString:(NSString *)hexStr;
 
+// color -> image
 - (UIImage *)pureColorImage;
 - (UIImage *)pureColorImageWithSize:(CGSize)size;
 
